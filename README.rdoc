@@ -1,0 +1,31 @@
+= splat
+
+small gem to provide an adapter for various platform specific features
+
+== installation
+
+  gem install splat
+
+== instantiate
+
+  splat = Splat.new
+
+== platform
+
+  puts spat.platform
+  puts splat.supported? ? 'supported' : 'not supported'
+
+== clipboard
+
+  splat.clipboard = "some new content"
+
+this will do nothing if the platform is not supported (win32 and macosx for the moment)
+
+== launcher
+
+  splat.launch 'http://google.com'
+
+== Future plans for world domination
+
+* detect remaining platforms
+* determine 1.9 compatibility
