@@ -1,4 +1,4 @@
-class Splat::Darwin10Launcher
+class Splat::DarwinLauncher
   def launch text
     `open #{text}`
   end

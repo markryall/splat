@@ -21,12 +21,12 @@ class Splat
           puts 'for browser automation with splat on windows'
           puts ' * gem install watir'
         end
-      when /darwin10/i
+      when /darwin/i
         @platform = :macosx
-        require 'splat/darwin10_clipboard'
-        @clipboard =  Splat::Darwin10Clipboard.new
-        require 'splat/darwin10_launcher'
-        @launcher = Splat::Darwin10Launcher.new
+        require 'splat/darwin_clipboard'
+        @clipboard =  Splat::DarwinClipboard.new
+        require 'splat/darwin_launcher'
+        @launcher = Splat::DarwinLauncher.new
         begin
           require 'safariwatir'
           @browser_class = Watir::Safari
