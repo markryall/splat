@@ -8,7 +8,7 @@ class Splat
         begin
           require 'splat/win32_clipboard'
           @clipboard = Splat::Win32Clipboard.new
-        rescue
+        rescue Exception
           puts 'for clipboard with splat on windows:'
           puts ' * gem install win32-clipboard'
         end
@@ -17,7 +17,7 @@ class Splat
         begin
           require 'watir'
           @browser_class = Watir::IE
-        rescue
+        rescue Exception
           puts 'for browser automation with splat on windows'
           puts ' * gem install watir'
         end
@@ -30,7 +30,7 @@ class Splat
         begin
           require 'safariwatir'
           @browser_class = Watir::Safari
-        rescue
+        rescue Exception
           puts 'for browser automation with splat on mac os x:'
           puts ' * gem install safariwatir'
           puts ' * gem install rb-appscript'
