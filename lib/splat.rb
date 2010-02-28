@@ -1,13 +1,13 @@
 class Splat
   attr_reader :platform
 
-  def try_load feature, *gems
+  def try_load feature, params
     begin
-      gems.each {|gem| require gem }
+      params.each {|gem, req| require req }
       yield
     rescue Exception
       puts "for #{feature} support with splat on #{@platform}:"
-      gems.each {|gem| puts " * gem install #{gem}" }
+      params.each {|gem, req| puts " * gem install #{gem}" }
     end
   end
 
@@ -19,13 +19,13 @@ class Splat
     case Config::CONFIG['host_os']
       when /mswin|win32|dos|cygwin|mingw/i
         @platform = :win32
-        try_load 'clipboard', ' win32-clipboard' do
+        try_load 'clipboard', 'win32-clipboard' => 'win32/clipboard' do
           require 'splat/win32_clipboard'
           @clipboard = Splat::Win32Clipboard.new
         end
         require 'splat/win32_launcher'
         @launcher = Splat::Win32Launcher.new
-        try_load 'browser automation', 'watir' do
+        try_load 'browser automation', 'watir' => 'watir' do
           @browser_class = Watir::IE
         end
         def @path_cleaner.clean path
@@ -37,7 +37,7 @@ class Splat
         @clipboard =  Splat::DarwinClipboard.new
         require 'splat/darwin_launcher'
         @launcher = Splat::DarwinLauncher.new
-        try_load 'browser automation', ' rb-appscript', 'safariwatir' do
+        try_load 'browser automation', 'rb-appscript' => 'rb-appscript', 'safariwatir' => 'safariwatir' do
           @browser_class = Watir::Safari
         end
       else
