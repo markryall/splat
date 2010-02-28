@@ -37,7 +37,7 @@ class Splat
         @clipboard =  Splat::DarwinClipboard.new
         require 'splat/darwin_launcher'
         @launcher = Splat::DarwinLauncher.new
-        try_load 'browser automation', 'rb-appscript' => 'rb-appscript', 'safariwatir' => 'safariwatir' do
+        try_load 'browser automation', 'rb-appscript' => 'appscript', 'safariwatir' => 'safariwatir' do
           @browser_class = Watir::Safari
         end
       else
