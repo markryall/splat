@@ -1,4 +1,4 @@
-class Splat
+module Splat
   attr_reader :platform
 
   def try_load feature, params
@@ -25,6 +25,8 @@ class Splat
         end
         require 'splat/win32_launcher'
         @launcher = Splat::Win32Launcher.new
+        require 'splat/win32_player'
+        @player = Splat::Win32Player.new
         try_load 'browser automation', 'watir' => 'watir' do
           @browser_class = Watir::IE
         end
@@ -37,6 +39,8 @@ class Splat
         @clipboard =  Splat::DarwinClipboard.new
         require 'splat/darwin_launcher'
         @launcher = Splat::DarwinLauncher.new
+        require 'splat/darwin_player'
+        @player = Splat::DarwinPlayer.new
         try_load 'browser automation', 'rb-appscript' => 'appscript', 'safariwatir' => 'safariwatir' do
           @browser_class = Watir::Safari
         end
@@ -60,6 +64,10 @@ class Splat
 
   def launch content
     @launcher.launch content if @launcher
+  end
+
+  def player path
+    @player.play path if @player
   end
 
   def clean_path path
