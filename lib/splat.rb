@@ -1,4 +1,4 @@
-module Splat
+class Splat
   attr_reader :platform
 
   def try_load feature, params
@@ -66,7 +66,7 @@ module Splat
     @launcher.launch content if @launcher
   end
 
-  def player path
+  def play path
     @player.play path if @player
   end
 
