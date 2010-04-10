@@ -1,5 +1,7 @@
 class Splat::DarwinClipboard
   def content= text
-    `echo "#{text}" | pbcopy`
+    IO.popen('pbcopy','w') do |clipboard|
+      clipboard.print text
+    end
   end
 end

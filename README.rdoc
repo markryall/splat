@@ -15,15 +15,43 @@ small gem to provide an adapter for various platform specific features
   puts spat.platform
   puts splat.supported? ? 'supported' : 'not supported'
 
+Each command will do nothing if the platform is not supported (everything except win32 and macosx for the moment)
+
+== browser
+
+  splat.browser
+
+Returns a watir compatible browser - uses safariwatir on mac os x and watir (ie) on windows.
+
 == clipboard
 
   splat.clipboard = "some new content"
 
-this will do nothing if the platform is not supported (win32 and macosx for the moment)
-
-== launcher
+== default application launcher
 
   splat.launch 'http://google.com'
+  splat.launch 'textfile.txt'
+  splat.launch 'audiofile.mp3'
+
+== audio player
+
+  splat.play "audio.mp3"
+
+Uses afplay on mac os x and requires mpg123 on windows.
+
+== text to speech
+
+  splat.say "I'm afraid. I'm afraid, Dave. Dave, my mind is going."
+
+Uses say on mac os x and win32 sapi on windows
+
+== path cleaning
+
+  splat.clean_path 'c:/a/path/that/might/upset/some/windows.application'
+
+This will simply replace '/' characters with '\' on windows and otherwise leave the path as is.
+
+Note that this is only necessary for passing a path to native windows applications
 
 == Future plans for world domination
 

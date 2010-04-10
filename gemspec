@@ -1,12 +1,14 @@
 Gem::Specification.new do |spec|
   spec.name = 'splat'
-  spec.version = '0.0.9'
+  spec.version = '0.1.0'
   spec.summary = 'cross platform adapter for various os specific features'
   spec.description = <<-EOF
 An adapter to get access to the following features across different platforms:
 
  * the clipboard
- * an application launcher
+ * a default application launcher
+ * a media player
+ * text to speech
 EOF
 
   spec.authors << 'Mark Ryall'

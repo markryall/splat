@@ -19,6 +19,10 @@ class Splat
     case Config::CONFIG['host_os']
       when /mswin|win32|dos|cygwin|mingw/i
         @platform = :win32
+        try_load 'text to speech', 'win32-sapi' => 'win32/sapi5' do
+          require 'splat/win32_tts'
+          @tts = Splat::Win32Tts.new
+        end
         try_load 'clipboard', 'win32-clipboard' => 'win32/clipboard' do
           require 'splat/win32_clipboard'
           @clipboard = Splat::Win32Clipboard.new
@@ -35,6 +39,8 @@ class Splat
         end
       when /darwin/i
         @platform = :macosx
+        require 'splat/darwin_tts'
+        @tts = Splat::DarwinTts.new
         require 'splat/darwin_clipboard'
         @clipboard =  Splat::DarwinClipboard.new
         require 'splat/darwin_launcher'
@@ -72,5 +78,9 @@ class Splat
 
   def clean_path path
     @path_cleaner.clean path
+  end
+
+  def say text
+    @tts.say text
   end
 end
