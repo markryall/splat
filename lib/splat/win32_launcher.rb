@@ -1,5 +1,5 @@
-class Splat::Win32Launcher
-  def launch text
-    `start #{text}`
+class String
+  def to_launcher
+    `start #{self}`
   end
 end

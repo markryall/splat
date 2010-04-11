@@ -1,5 +1,5 @@
-class Splat::DarwinPlayer
-  def play path
-    `afplay #{path}`
+class String
+  def to_player
+    `afplay #{self}`
   end
 end

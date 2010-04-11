@@ -1,53 +1,66 @@
 = splat
 
-small gem to provide an adapter for various platform specific features
+small gem to provide an adapter for various platform specific features.
+
+This is done by adding the following methods to String:
+
+* to_editor
+* to_browser
+* to_clipboard
+* to_speech
+* to_launcher
+* to_player
+* to_os_path
 
 == installation
 
   gem install splat
 
-== instantiate
+== load
 
-  splat = Splat.new
+  require 'splat'
 
-== platform
+== launch editor
 
-  puts spat.platform
-  puts splat.supported? ? 'supported' : 'not supported'
+  'current content'.to_editor
 
-Each command will do nothing if the platform is not supported (everything except win32 and macosx for the moment)
 
-== browser
 
-  splat.browser
+== browser automation
+
+  'http://www.google.com'.to_browser
 
 Returns a watir compatible browser - uses safariwatir on mac os x and watir (ie) on windows.
 
 == clipboard
 
-  splat.clipboard = "some new content"
+  'some new content'.to_clipboard
+
+Copies the string to the os clipboard
 
 == default application launcher
 
-  splat.launch 'http://google.com'
-  splat.launch 'textfile.txt'
-  splat.launch 'audiofile.mp3'
+  'http://google.com'.to_launcher
+  'textfile.txt'.to_launcher
+  'audiofile.mp3'.to_launcher
+
+Launches the referenced content with the default system application
 
 == audio player
 
-  splat.play "audio.mp3"
+  'audio.mp3'.to_player
 
-Uses afplay on mac os x and requires mpg123 on windows.
+Uses 'afplay' on mac os x and requires mpg123 on windows.
 
 == text to speech
 
-  splat.say "I'm afraid. I'm afraid, Dave. Dave, my mind is going."
+  "I'm afraid. I'm afraid, Dave. Dave, my mind is going.".to_speech
 
-Uses say on mac os x and win32 sapi on windows
+Uses 'say' on mac os x and win32 sapi on windows
 
 == path cleaning
 
-  splat.clean_path 'c:/a/path/that/might/upset/some/windows.application'
+  'c:/a/path/that/might/upset/some/windows.application'.to_os_path
 
 This will simply replace '/' characters with '\' on windows and otherwise leave the path as is.
 

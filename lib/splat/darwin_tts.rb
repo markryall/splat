@@ -1,5 +1,5 @@
-class Splat::DarwinTts
-  def say text
-    `say "#{text}"`
+class String
+  def to_speech
+    `say "#{self}"`
   end
 end

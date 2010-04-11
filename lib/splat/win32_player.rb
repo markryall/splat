@@ -1,5 +1,5 @@
-class Splat::Win32Player
-  def play path
-    `mpg123 -q #{path}`
+class String
+  def to_player
+    `mpg123 -q #{self}`
   end
 end

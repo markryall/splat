@@ -1,5 +1,5 @@
-class Splat::DarwinLauncher
-  def launch text
-    `open #{text}`
+class String
+  def to_launcher
+    `open #{self}`
   end
 end

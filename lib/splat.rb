@@ -1,86 +1,66 @@
-class Splat
-  attr_reader :platform
+require 'tempfile'
 
-  def try_load feature, params
+class String
+  def splat_unsupported
+    $stderr.puts 'platform not supported'
+  end
+
+  alias :to_browser   :splat_unsupported
+  alias :to_clipboard :splat_unsupported
+  alias :to_speech    :splat_unsupported
+  alias :to_launcher  :splat_unsupported
+  alias :to_player    :splat_unsupported
+  alias :to_os_path   :to_s
+
+  def to_editor
+    tmp_file = Tempfile.new('splat')
+    tmp_file.close
     begin
-      params.each {|gem, req| require req }
-      yield
-    rescue Exception
-      puts "for #{feature} support with splat on #{@platform}:"
-      params.each {|gem, req| puts " * gem install #{gem}" }
+      File.open(tmp_file.path, 'w') { |out| out.print self }
+      editor = ENV["EDITOR"] || "notepad"
+      system("#{editor} #{tmp_file.path}")
+      return unless $?.to_i == 0
+      File.read(tmp_file.path)
+    ensure
+      tmp_file.unlink
+    end
+  end
+end
+
+module Splat
+  def self.platform
+    @platform
+  end
+
+  def self.try_load feature, dependencies={}
+    begin
+      dependencies.each {|gem_name, require_parameter| require require_parameter }
+      require "splat/#{@platform}_#{feature}"
+    rescue Exception => e
+      $stderr.puts e
+      $stderr.puts "for #{feature} support with splat on #{@platform}:"
+      dependencies.each {|gem_name, require_parameter| $stderr.puts " * gem install #{gem_name}" }
     end
   end
 
-  def initialize
-    @path_cleaner = Object.new
-    def @path_cleaner.clean path
-      path
-    end
-    case Config::CONFIG['host_os']
-      when /mswin|win32|dos|cygwin|mingw/i
-        @platform = :win32
-        try_load 'text to speech', 'win32-sapi' => 'win32/sapi5' do
-          require 'splat/win32_tts'
-          @tts = Splat::Win32Tts.new
-        end
-        try_load 'clipboard', 'win32-clipboard' => 'win32/clipboard' do
-          require 'splat/win32_clipboard'
-          @clipboard = Splat::Win32Clipboard.new
-        end
-        require 'splat/win32_launcher'
-        @launcher = Splat::Win32Launcher.new
-        require 'splat/win32_player'
-        @player = Splat::Win32Player.new
-        try_load 'browser automation', 'watir' => 'watir' do
-          @browser_class = Watir::IE
-        end
-        def @path_cleaner.clean path
-          path.to_s.gsub('/','\\')
-        end
-      when /darwin/i
-        @platform = :macosx
-        require 'splat/darwin_tts'
-        @tts = Splat::DarwinTts.new
-        require 'splat/darwin_clipboard'
-        @clipboard =  Splat::DarwinClipboard.new
-        require 'splat/darwin_launcher'
-        @launcher = Splat::DarwinLauncher.new
-        require 'splat/darwin_player'
-        @player = Splat::DarwinPlayer.new
-        try_load 'browser automation', 'rb-appscript' => 'appscript', 'safariwatir' => 'safariwatir' do
-          @browser_class = Watir::Safari
-        end
-      else
-        @platform = :unknown
-        puts "I have no idea how to cope with \"#{Config::CONFIG['host_os']}\""
-    end
-  end
-
-  def supported?
-    @platform != :unknown
-  end
-
-  def clipboard= content
-    @clipboard.content = content if @clipboard
-  end
-
-  def browser
-    @browser_class.new if @browser_class
-  end
-
-  def launch content
-    @launcher.launch content if @launcher
-  end
-
-  def play path
-    @player.play path if @player
-  end
-
-  def clean_path path
-    @path_cleaner.clean path
-  end
-
-  def say text
-    @tts.say text
+  case Config::CONFIG['host_os']
+    when /mswin|win32|dos|cygwin|mingw/i
+      @platform = :win32
+      try_load 'tts', 'win32-sapi' => 'win32/sapi5'
+      try_load 'clipboard', 'win32-clipboard' => 'win32/clipboard'
+      try_load 'launcher'
+      try_load 'player'
+      try_load 'browser', 'watir' => 'watir'
+      try_load 'os_path'
+    when /darwin/i
+      @platform = :darwin
+      try_load 'tts'
+      try_load 'clipboard'
+      try_load 'launcher'
+      try_load 'player'
+      try_load 'browser', 'rb-appscript' => 'appscript', 'safariwatir' => 'safariwatir'
+    else
+      @platform = :unknown
+      puts "I have no idea how to cope with \"#{Config::CONFIG['host_os']}\""
   end
 end

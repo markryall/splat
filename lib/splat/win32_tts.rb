@@ -1,5 +1,5 @@
-class Splat::Win32Tts
-  def say text
-    Win32::SpVoice.new.Speak(text)
+class String
+  def to_speech
+    Win32::SpVoice.new.Speak(self)
   end
 end
