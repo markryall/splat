@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'splat'
-  spec.version = '0.1.0'
+  spec.version = '0.1.1'
   spec.summary = 'cross platform adapter for various os specific features'
   spec.description = <<-EOF
 An adapter to get access to the following features across different platforms:
@@ -16,4 +16,7 @@ EOF
   spec.homepage = 'http://github.com/markryall/splat'
 
   spec.files = Dir['lib/**/*'] + ['README.rdoc', 'MIT-LICENSE']
+
+  spec.add_development_dependency 'rake', '~>0.8.7'
+  spec.add_development_dependency 'gemesis', '~>0.0.4'
 end

@@ -17,7 +17,8 @@ class String
     tmp_file.close
     begin
       File.open(tmp_file.path, 'w') { |out| out.print self }
-      editor = ENV["EDITOR"] || "notepad"
+      default_editor = Splat.platform == :win32 ? 'notepad' : 'vim'
+      editor = ENV["EDITOR"] || default_editor
       system("#{editor} #{tmp_file.path}")
       return unless $?.to_i == 0
       File.read(tmp_file.path)
@@ -59,6 +60,13 @@ module Splat
       try_load 'launcher'
       try_load 'player'
       try_load 'browser', 'rb-appscript' => 'appscript', 'safariwatir' => 'safariwatir'
+    when /linux/i
+      @platform = :linux
+      try_load 'tts'
+      try_load 'clipboard'
+      try_load 'launcher'
+      try_load 'player'
+      try_load 'browser', 'firewatir' => 'firewatir'
     else
       @platform = :unknown
       puts "I have no idea how to cope with \"#{Config::CONFIG['host_os']}\""

@@ -24,19 +24,19 @@ This is done by adding the following methods to String:
 
   'current content'.to_editor
 
-
+Defaults to notepad on windows and vim everywhere else. Set "EDITOR" environment variable to override this.
 
 == browser automation
 
   'http://www.google.com'.to_browser
 
-Returns a watir compatible browser - uses safariwatir on mac os x and watir (ie) on windows.
+Returns a watir compatible browser - uses safariwatir on mac os x, watir (ie) on windows and firefox on linux.
 
 == clipboard
 
   'some new content'.to_clipboard
 
-Copies the string to the os clipboard
+Copies the string to the os clipboard. Requires 'xclip' on linux.
 
 == default application launcher
 
@@ -44,13 +44,13 @@ Copies the string to the os clipboard
   'textfile.txt'.to_launcher
   'audiofile.mp3'.to_launcher
 
-Launches the referenced content with the default system application
+Launches the referenced content with the default system application. Requires 'gnome-open' on linux.
 
 == audio player
 
   'audio.mp3'.to_player
 
-Uses 'afplay' on mac os x and requires mpg123 on windows.
+Uses 'afplay' on mac os x, 'mpg123' on windows and 'mplayer' on linux.
 
 == text to speech
 
@@ -64,7 +64,7 @@ Uses 'say' on mac os x and win32 sapi on windows
 
 This will simply replace '/' characters with '\' on windows and otherwise leave the path as is.
 
-Note that this is only necessary for passing a path to native windows applications
+Note that this is only necessary for passing a path to native windows applications on windows.
 
 == Future plans for world domination
 
