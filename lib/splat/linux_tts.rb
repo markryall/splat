@@ -1,5 +1,5 @@
 class String
   def to_speech
-    `say "#{self}"`
+    `espeak "#{self}"`
   end
 end

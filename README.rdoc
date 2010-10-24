@@ -30,7 +30,7 @@ Defaults to notepad on windows and vim everywhere else. Set "EDITOR" environment
 
   'http://www.google.com'.to_browser
 
-Returns a watir compatible browser - uses safariwatir on mac os x, watir (ie) on windows and firefox on linux.
+Returns a watir compatible browser - uses safariwatir on mac os x, watir (ie) on windows and firewatir on linux.
 
 == clipboard
 
@@ -56,7 +56,7 @@ Uses 'afplay' on mac os x, 'mpg123' on windows and 'mplayer' on linux.
 
   "I'm afraid. I'm afraid, Dave. Dave, my mind is going.".to_speech
 
-Uses 'say' on mac os x and win32 sapi on windows
+Uses 'say' on mac os x, win32 sapi on windows and espeak on linux.
 
 == path cleaning
 
@@ -68,5 +68,6 @@ Note that this is only necessary for passing a path to native windows applicatio
 
 == Future plans for world domination
 
-* detect remaining platforms
+* detect other platforms
+* more configurable
 * determine 1.9 compatibility
