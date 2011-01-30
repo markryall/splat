@@ -1,5 +1,5 @@
 class String
   def to_launcher
-    `gnome-open #{self}`
+    spawn "gnome-open \"#{self}\""
   end
 end

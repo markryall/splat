@@ -59,7 +59,7 @@ module Splat
       try_load 'clipboard'
       try_load 'launcher'
       try_load 'player'
-      try_load 'browser', 'rb-appscript' => 'appscript', 'safariwatir' => 'safariwatir'
+      try_load 'browser',   'safariwatir' => 'safariwatir'
     when /linux/i
       @platform = :linux
       try_load 'tts'

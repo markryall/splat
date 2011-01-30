@@ -1,5 +1,5 @@
 class String
   def to_player
-    `mplayer #{self}`
+     spawn "mplayer \"#{self}\""
   end
 end

@@ -1,5 +1,5 @@
 class String
   def to_launcher
-    `start #{self}`
+    spawn "start \"#{self}\""
   end
 end
