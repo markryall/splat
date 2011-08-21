@@ -3,8 +3,13 @@ $: << File.dirname(__FILE__)+'/../lib'
 require 'splat'
 
 class VerificationMatcher
-  def matches? description
-    @description = description
+  def initialize method, description
+    @method, @description = method, description
+  end
+
+  def matches? string
+    @description = @description.gsub('%s', string)
+    string.send @method
     $stderr.print "Did it #{description}? "
     $stdin.gets =~ /^y/i
   end
@@ -19,12 +24,9 @@ class VerificationMatcher
 end
 
 describe 'splat' do
-  def be_verified
-    VerificationMatcher.new
+  def have_method method, description
+    VerificationMatcher.new method, description
   end
 
-  it do
-    "http://www.google.com".to_browser
-    "launch a browser and go to google.com".should be_verified
-  end
+  it { "http://www.google.com".should have_method(:to_browser, "launch a browser and go to %s") }
 end
