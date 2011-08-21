@@ -20,4 +20,5 @@ EOF
   spec.add_dependency 'watir-webdriver'
 
   spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec'
 end
