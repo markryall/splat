@@ -1,0 +1,29 @@
+PATH
+  remote: .
+  specs:
+    splat (0.1.2)
+      watir-webdriver
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    childprocess (0.2.1)
+      ffi (~> 1.0.6)
+    ffi (1.0.9)
+    json_pure (1.5.3)
+    rake (0.9.2)
+    rubyzip (0.9.4)
+    selenium-webdriver (2.4.0)
+      childprocess (>= 0.2.1)
+      ffi (>= 1.0.7)
+      json_pure
+      rubyzip
+    watir-webdriver (0.3.2)
+      selenium-webdriver (>= 0.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rake
+  splat!
