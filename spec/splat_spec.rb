@@ -5,8 +5,12 @@ require 'splat'
 class VerificationMatcher
   def matches? description
     @description = description
-    $stdout.print "Did it #{description}? "
+    $stderr.print "Did it #{description}? "
     $stdin.gets =~ /^y/i
+  end
+
+  def description
+    "#{@description}"
   end
 
   def failure_message
