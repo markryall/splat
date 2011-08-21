@@ -30,7 +30,7 @@ Defaults to notepad on windows and vim everywhere else. Set "EDITOR" environment
 
   'http://www.google.com'.to_browser
 
-Returns a watir compatible browser - uses safariwatir on mac os x, watir (ie) on windows and firewatir on linux.
+Returns a watir compatible browser using watir-webdriver.
 
 == clipboard
 
