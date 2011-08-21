@@ -1,4 +1,5 @@
-$: << File.dirname(__FILE__)+'/../lib'
+HERE = File.dirname(__FILE__)
+$: << HERE+'/../lib'
 
 require 'splat'
 
@@ -9,7 +10,7 @@ class VerificationMatcher
 
   def matches? string
     t = string.send @method
-    @description = @description.gsub('%s', string).gsub('%t', t)    
+    @description = @description.gsub('%s', string).gsub('%t', t.to_s)    
     $stderr.print "Did it #{description}? "
     $stdin.gets =~ /^y/i
   end
@@ -33,4 +34,6 @@ describe 'splat' do
   it { 'something out loud'.should have_method(:to_speech, 'say "%s"') }
   it { '.'.should have_method(:to_launcher, 'launch the default application for "%s"') }
   it { 'some text content'.should have_method(:to_editor, 'launch the default editor with initial content "%s" and final content "%t"') }
+  it { 'a/b/c'.should have_method(:to_os_path, 'convert unix path "%s" to platform path "%t"')}
+  it { (HERE+'/bicycle1.mp3').should have_method(:to_player, 'send "%s" to to audio player spawning process %t')}
 end
