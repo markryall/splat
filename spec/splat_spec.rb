@@ -28,5 +28,8 @@ describe 'splat' do
     VerificationMatcher.new method, description
   end
 
-  it { "http://www.google.com".should have_method(:to_browser, "launch a browser and go to %s") }
+  it { 'http://www.google.com'.should have_method(:to_browser, 'launch a browser and go to "%s"') }
+  it { 'clipboard content'.should have_method(:to_clipboard, 'set the contents of the clipboard to "%s"') }
+  it { 'something out loud'.should have_method(:to_speech, 'say "%s"') }
+  it { '.'.should have_method(:to_launcher, 'launch the default application for "%s"') }
 end
