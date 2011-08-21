@@ -1,4 +1,5 @@
 require 'tempfile'
+require 'watir-webdriver'
 
 class String
   def splat_unsupported
@@ -11,6 +12,12 @@ class String
   alias :to_launcher  :splat_unsupported
   alias :to_player    :splat_unsupported
   alias :to_os_path   :to_s
+
+  def to_browser
+    @browser = Watir::Browser.new
+    @browser.goto self
+    @browser
+  end
 
   def to_editor
     tmp_file = Tempfile.new('splat')
@@ -51,7 +58,6 @@ module Splat
       try_load 'clipboard', 'win32-clipboard' => 'win32/clipboard'
       try_load 'launcher'
       try_load 'player'
-      try_load 'browser', 'watir' => 'watir'
       try_load 'os_path'
     when /darwin/i
       @platform = :darwin
@@ -59,14 +65,12 @@ module Splat
       try_load 'clipboard'
       try_load 'launcher'
       try_load 'player'
-      try_load 'browser',   'safariwatir' => 'safariwatir'
     when /linux/i
       @platform = :linux
       try_load 'tts'
       try_load 'clipboard'
       try_load 'launcher'
       try_load 'player'
-      try_load 'browser', 'firewatir' => 'firewatir'
     else
       @platform = :unknown
       puts "I have no idea how to cope with \"#{Config::CONFIG['host_os']}\""
