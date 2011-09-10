@@ -26,12 +26,6 @@ This is done by adding the following methods to String:
 
 Defaults to notepad on windows and vim everywhere else. Set "EDITOR" environment variable to override this.
 
-== browser automation
-
-  'http://www.google.com'.to_browser
-
-Returns a watir compatible browser using watir-webdriver.
-
 == clipboard
 
   'some new content'.to_clipboard

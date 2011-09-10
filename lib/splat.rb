@@ -1,23 +1,15 @@
 require 'tempfile'
-require 'watir-webdriver'
 
 class String
   def splat_unsupported
     $stderr.puts 'platform not supported'
   end
 
-  alias :to_browser   :splat_unsupported
   alias :to_clipboard :splat_unsupported
   alias :to_speech    :splat_unsupported
   alias :to_launcher  :splat_unsupported
   alias :to_player    :splat_unsupported
   alias :to_os_path   :to_s
-
-  def to_browser
-    @browser = Watir::Browser.new
-    @browser.goto self
-    @browser
-  end
 
   def to_editor
     tmp_file = Tempfile.new('splat')
