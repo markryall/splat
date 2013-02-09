@@ -4,3 +4,5 @@ desc 'execute specifications'
 task :test do
   sh 'rspec spec'
 end
+
+task default: :test
