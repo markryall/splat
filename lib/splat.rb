@@ -43,7 +43,7 @@ module Splat
     end
   end
 
-  case Config::CONFIG['host_os']
+  case RbConfig::CONFIG['host_os']
     when /mswin|win32|dos|cygwin|mingw/i
       @platform = :win32
       try_load 'tts', 'win32-sapi' => 'win32/sapi5'

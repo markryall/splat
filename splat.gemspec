@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'splat'
-  spec.version = '0.1.4'
+  spec.version = '0.1.5'
   spec.summary = 'cross platform adapter for various os specific features'
   spec.description = <<-EOF
 An adapter to get access to the following features across different platforms:
